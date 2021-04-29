@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col-md-3"></div>    
+        <div class="col-md-6">
+        <div class="container">
+            <br>
+            <h5>Seleccione la opción de busqueda:</h5>
+
+
+   
+
+<div id="car-dep" >
+        <div>Seleccionar cargo</div>
+
+        <select id="selCargo" class="form-select form-select-lg mb-3"></select>
+        
+        <br>
+        Seleccionar Departamento
+        <select id="selDepartamento" class="form-select form-select-lg mb-3"></select><br>
+        <button class="btn btn-primary" onclick="getselectCardeps()" >Buscar</button>
+    
+        <br>
+        <br>
+    </div>
+   
+
+
+<div id="tablita" >
+      
+        
+        <table class="table" id=tablaprincipal>
+            <thead class="thead-dark">
+                <tr>
+                  <th >Cargo</th>
+                  <th >Departamento</th>
+                  <th >Nombre</th>
+                  <th >Sueldo</th>
+                  <th >Ano</th>
+                  <th>Mes</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpo">
+
+              </tbody>
+        </table>
+    </div>
+    </div>    
+        <div class="col-md-3"></div>    
+    </div>
+
+    <script src="index.js">
+      
+    </script>
+</body>
+
+</html>

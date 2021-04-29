@@ -1,0 +1,15 @@
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\bin\Debug\net5.0\RedSocial.Services.deps.json
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\bin\Debug\net5.0\RedSocial.Services.dll
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\bin\Debug\net5.0\ref\RedSocial.Services.dll
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\bin\Debug\net5.0\RedSocial.Services.pdb
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\obj\Debug\net5.0\RedSocial.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\obj\Debug\net5.0\RedSocial.Services.AssemblyInfoInputs.cache
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\obj\Debug\net5.0\RedSocial.Services.AssemblyInfo.cs
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\obj\Debug\net5.0\RedSocial.Services.csproj.CoreCompileInputs.cache
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\obj\Debug\net5.0\RedSocial.Services.dll
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\obj\Debug\net5.0\ref\RedSocial.Services.dll
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\obj\Debug\net5.0\RedSocial.Services.pdb
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\bin\Debug\net5.0\RedSocial.Models.dll
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\bin\Debug\net5.0\RedSocial.Models.pdb
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\obj\Debug\net5.0\RedSocial.Services.csprojAssemblyReference.cache
+C:\Users\dvalerio\Desktop\Probando\RedSocial.Services\obj\Debug\net5.0\RedSocial.Services.csproj.CopyComplete
