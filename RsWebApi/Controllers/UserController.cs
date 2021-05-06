@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RedSocial.Services.Interfaces;
 using RedSocial.Models;
+using RedSocial.Services.Entities;
 
 namespace RsWebApi.Controllers
 {
@@ -18,15 +19,15 @@ namespace RsWebApi.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetUsuarios([FromQuery] Pagination pagination)
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> GetUsuarios(int id)
         {
-            return Ok(await _userService.GetUsuariosAsync(pagination));
+            return Ok(await _userService.GetUsuariosAsync(id));
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> PostUser(UserModel model)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> CreateUser(User model)
         {
             return Ok(await _userService.CreateUserAsync(model));
         }
@@ -39,9 +40,15 @@ namespace RsWebApi.Controllers
         }
 
         [HttpGet("[action]/{userName}")]
-        public async Task<IActionResult> GetLogin(string userName)
+        public async Task<IActionResult> GetLoginResult(string userName)
         {
             return Ok(await _userService.LoginResultAsync(userName));
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetLogin(User model)
+        {
+            return Ok(await _userService.LoginAsync(model.UserName, model.Password));
         }
 
         [HttpDelete]

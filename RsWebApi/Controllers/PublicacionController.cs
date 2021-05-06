@@ -24,9 +24,9 @@ namespace RsWebApi.Controllers
         }
 
         [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> GetPublicacionLike(int id)
+        public async Task<IActionResult> GetPublicacionByUserLikeCount(int id)
         {
-            return Ok(await _publicacionService.GetPublicacionLikeCountAsync(id));
+            return Ok(await _publicacionService.GetPublicacionByUserLikeCountAsync(id));
         }
 
         [HttpPost]
@@ -42,9 +42,15 @@ namespace RsWebApi.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> DarLike(LikeModel model)
+        public async Task<IActionResult> DarLike([FromBody] LikeModel model)
         {
             return Ok(await _publicacionService.DarLikeAsync(model));
+        }
+
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> GetUserPublicacion(int id)
+        {
+            return Ok(await _publicacionService.GetUserpublicacionAsync(id));
         }
 
 

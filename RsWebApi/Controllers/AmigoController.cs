@@ -10,43 +10,44 @@ using System.Threading.Tasks;
 
 namespace RsWebApi.Controllers
 {
-    public class AmigoController : Controller
+    [Route("api/[controller]")]
+    public class AmigoController : ControllerBase
     {
-        private readonly IAmigoService _AmigoService;
+        private readonly IAmigoService _amigoService;
 
         public AmigoController(IAmigoService amigoService)
         {
-            _AmigoService = amigoService;
+            _amigoService = amigoService;
         }
 
         [HttpGet("[action]/{id}")]
         public async Task <IActionResult> GetAmigo(int id)
         {
-            return Ok(await _AmigoService.GetAmigoAsync(id));
+            return Ok(await _amigoService.GetAmigoAsync(id));
         }
 
         [HttpPost("[action]")]
-        public async Task <IActionResult> EnviarSolicitud(Solicitud solicitud)
+        public async Task <IActionResult> EnviarSolicitud([FromBody] Solicitud solicitud)
         {
-            return Ok(await _AmigoService.EnviarSolicitudAsync(solicitud));
+            return Ok(await _amigoService.EnviarSolicitudAsync(solicitud));
         }
 
        [HttpPut("[action]")]
-       public async Task <IActionResult> AceptarSolicitud (Solicitud solicitud)
+       public async Task <IActionResult> AceptarSolicitud ([FromBody] Solicitud solicitud)
         {
-            return Ok(await _AmigoService.AceptarSolicitudAsync(solicitud));
+            return Ok(await _amigoService.AceptarSolicitudAsync(solicitud));
         }
         
-        [HttpGet("[action]")]
-        public async Task <IActionResult> GetSolicitud()
+        [HttpGet("[action]/{id}")]
+        public async Task <IActionResult> GetSolicitud(int id)
         {
-            return Ok(await _AmigoService.GetSolicitudAsync());
+            return Ok(await _amigoService.GetSolicitudAsync(id));
         }
 
-        [HttpDelete("[action]")]
-        public async Task <IActionResult> DeleteSolicitud(int id)
+        [HttpDelete("[action]/{remitenteId}/{destinatarioId}")]
+        public async Task <IActionResult> DeleteSolicitud(int remitenteId, int destinatarioId)
         {
-            return Ok(await _AmigoService.DeleteSolicitudAsync(id));
+            return Ok(await _amigoService.DeleteSolicitudAsync(remitenteId, destinatarioId));
         }
 
         

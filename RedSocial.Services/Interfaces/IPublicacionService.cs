@@ -11,13 +11,15 @@ namespace RedSocial.Services.Interfaces
     {
         Task<IEnumerable<PublicacionModel>> GetPublicacionAsync();
 
-        Task<IEnumerable<PublicacionModel>> GetPublicacionLikeCountAsync(int id);
+        Task<IEnumerable<PublicacionModel>> GetPublicacionByUserLikeCountAsync(int id);
 
         Task<PublicacionModel> PostPublicacionAsync(PublicacionModel model);
 
         Task<IEnumerable<PublicacionModel>> DeletePublicacionAsync(int id);
 
         Task<LikeModel> DarLikeAsync(LikeModel model);
+
+        Task<IEnumerable<PublicacionModel>> GetUserpublicacionAsync(int id);
        
     }
 }

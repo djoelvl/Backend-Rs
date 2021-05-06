@@ -49,10 +49,7 @@ namespace RedSocial.Services.Db
                 entity.HasKey(e => e.Id);
 
                 
-                entity.HasOne<SolicitudEstado>()
-                .WithMany()
-                .HasPrincipalKey(k => k.Id)
-                .HasForeignKey(f => f.EstadoId);
+                
 
             });
 

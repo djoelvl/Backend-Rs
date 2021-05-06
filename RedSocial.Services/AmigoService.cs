@@ -30,7 +30,7 @@ namespace RedSocial.Services
             var query = from a in _db.User
                         join b in _db.Solicitud on a.Id equals b.DestinatarioId into ab
                         from c in ab.DefaultIfEmpty()
-                        where a.Id != id
+                        where a.Id != id && c.Estado != "aceptada"
 
                         select
                         new UsuariosSolicitudModel
@@ -39,7 +39,7 @@ namespace RedSocial.Services
                             FirstName = a.FirstName,
                             LastName = a.LastName,
                             UserName = a.UserName,
-                            Estado = "Enviada"                         
+                            Estado = c.Estado                        
                         }
                                             ;
 
@@ -50,13 +50,14 @@ namespace RedSocial.Services
         {
             var item = await _db.Solicitud
                 .FirstOrDefaultAsync(l => l.RemitenteId == solicitud.RemitenteId 
-                && l.DestinatarioId == solicitud.DestinatarioId);
+                && l.DestinatarioId == solicitud.DestinatarioId || l.RemitenteId == solicitud.DestinatarioId
+                && l.DestinatarioId == solicitud.RemitenteId);
 
             var amistad = new Solicitud
             {
                 RemitenteId = solicitud.RemitenteId,
                 DestinatarioId = solicitud.DestinatarioId,
-                EstadoId = solicitud.EstadoId
+                Estado = solicitud.Estado
             };
 
             if (item == null)
@@ -81,9 +82,7 @@ namespace RedSocial.Services
 
         public async Task <Solicitud> AceptarSolicitudAsync(Solicitud solicitud)
         {
-            //[HttpPut("[action]/{remitenteId}/{destinatarioId}")]
-            //public async Task<IActionResult> DeleteSolicitud( int remitenteId, int destinatarioId, Solicitud solicitud)
-            //{
+            
             var query =
                 await _db.Solicitud.FirstOrDefaultAsync
                 (s => (s.RemitenteId == solicitud.RemitenteId && s.DestinatarioId == solicitud.DestinatarioId)
@@ -95,7 +94,7 @@ namespace RedSocial.Services
                 throw new Exception("Ya le envío una solicitud");
             }
 
-            query.EstadoId = solicitud.EstadoId;
+            query.Estado = solicitud.Estado;
 
             try
             {
@@ -109,20 +108,30 @@ namespace RedSocial.Services
             return query;
         }
 
-        public async Task<IEnumerable<Solicitud>> GetSolicitudAsync()
+        public async Task<IEnumerable<UsuariosSolicitudModel>> GetSolicitudAsync(int id)
         {
-            return await _db.Solicitud.Select(s=>
-            new Solicitud { 
-                Id = s.Id,
-                DestinatarioId = s.DestinatarioId,
-                RemitenteId = s.RemitenteId,
-                EstadoId = s.EstadoId
-            }).ToListAsync();
+           
+
+            var query = from a in _db.User
+                        join b in _db.Solicitud on a.Id equals b.RemitenteId into ab
+                        from c in ab.DefaultIfEmpty()
+                        where c.DestinatarioId == id && c.Estado == "enviada"
+
+                        select
+                        new UsuariosSolicitudModel
+                        {
+                            Id = a.Id,
+                            FirstName = a.FirstName,
+                            LastName = a.LastName,
+                            UserName = a.UserName
+                        };
+
+            return await query.ToListAsync();
         }
 
-        public async Task<IEnumerable<Solicitud>> DeleteSolicitudAsync(int id)
+        public async Task<IEnumerable<Solicitud>> DeleteSolicitudAsync(int remitenteId, int destinatarioId)
         {
-            var query = await _db.Solicitud.FindAsync(id);
+            var query = await _db.Solicitud.FirstOrDefaultAsync(s=>(s.RemitenteId == remitenteId && s.DestinatarioId == destinatarioId));
 
              _db.Remove(query);
             await _db.SaveChangesAsync();
@@ -134,7 +143,7 @@ namespace RedSocial.Services
                     Id = p.Id,
                     DestinatarioId = p.DestinatarioId,
                     RemitenteId = p.RemitenteId,
-                    EstadoId = p.EstadoId
+                    Estado = p.Estado
 
                 }).ToListAsync();
         }

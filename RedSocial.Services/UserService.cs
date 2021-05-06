@@ -20,39 +20,39 @@ namespace RedSocial.Services
             _db = db;
         }
 
-        public async Task<UserModel> CreateUserAsync(UserModel model)
+        public async Task<User> CreateUserAsync(User model)
         {
             var user = await _db.User.FirstOrDefaultAsync(f => f.UserName == model.UserName);
             if (user != null)
                 throw new Exception("El usuario ya existe");
 
-            user = new User
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.UserName,
-                Password = "123"
 
-            };
-
-            await _db.User.AddAsync(user);
+            await _db.User.AddAsync(model);
             await _db.SaveChangesAsync();
 
-            model.Id = user.Id;
+            
 
-            return model;
+            return user;
         }
 
-        public async Task<IEnumerable<UserModel>> GetUsuariosAsync(Pagination pagination)
+  
+
+
+        public async Task<IEnumerable<UserModel>> GetUsuariosAsync(int id)
         {
-            return await _db.User
-                .Select(user => new UserModel
-                {
-                    Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    UserName = user.UserName
-                }).ToListAsync();
+            var query = from a in _db.User
+                        where a.Id == id
+                        select new UserModel
+                        {
+                            Id = a.Id,
+                            FirstName = a.FirstName,
+                            LastName = a.LastName,
+                            UserName = a.UserName   
+                        };
+
+            return await query.ToListAsync();
+
+
         }
 
         public async Task<UserModel> UpdateUserAsync(UserModel model)
@@ -121,6 +121,30 @@ namespace RedSocial.Services
                     LastName = user.LastName,
                     UserName = user.UserName
                 }).ToListAsync();
+        }
+
+      
+
+        public async Task<LoginResult> LoginAsync(string userName, string password)
+        {
+            var user = await(from a in _db.User
+                        where a.UserName == userName && a.Password == password
+                        select new LoginResult
+                        {
+                            Id = a.Id,
+                            FirstName = a.FirstName,
+                            LastName = a.LastName,
+                            UserName = a.UserName,
+                            Token = Guid.NewGuid().ToString()
+                        }).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new Exception("El usuario no existe");
+            }
+
+
+            return  user;
         }
     }
 }

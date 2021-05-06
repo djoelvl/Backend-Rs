@@ -36,7 +36,7 @@ namespace RedSocial.Services
                 }).ToListAsync();
         }
 
-        public async Task<IEnumerable<PublicacionModel>> GetPublicacionLikeCountAsync(int id)
+        public async Task<IEnumerable<PublicacionModel>> GetPublicacionByUserLikeCountAsync(int id)
         {
            
                     var query = from a in _db.Publicacion
@@ -46,6 +46,7 @@ namespace RedSocial.Services
 
                                     Id = a.Id,
                                     Contenido = a.Contenido,
+                                    UserId = a.UserId,
                                     CantidadLikes = _db.Like.Where(w => w.PublicacionId == a.Id).Count()
                                 };
 
@@ -104,7 +105,7 @@ namespace RedSocial.Services
             }
             else
             {
-                _db.Like.Remove(query);
+                _db.Like.Remove(item);
                 likeAdded = -1;
             }
 
@@ -112,6 +113,19 @@ namespace RedSocial.Services
             await _db.SaveChangesAsync();
 
             return model;
+        }
+
+        public async Task<IEnumerable<PublicacionModel>> GetUserpublicacionAsync(int id)
+        {
+            return await _db
+               .Publicacion.Where(p=>p.UserId == id)
+               .Select(p => new PublicacionModel
+               {
+                   Id = p.Id,
+                   Contenido = p.Contenido,
+                   UserId = p.UserId
+
+               }).ToListAsync();
         }
     }
 }

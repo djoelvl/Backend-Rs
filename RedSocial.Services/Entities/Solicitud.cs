@@ -14,7 +14,7 @@ namespace RedSocial.Services.Entities
 
         public int DestinatarioId { get; set; }
 
-        public short EstadoId { get; set; }
+        public string Estado { get; set; }
     }
 
 }

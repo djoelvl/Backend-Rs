@@ -16,8 +16,8 @@ namespace RedSocial.Services.Interfaces
 
         Task<Solicitud> AceptarSolicitudAsync(Solicitud solicitud);
 
-        Task<IEnumerable<Solicitud>> GetSolicitudAsync();
+        Task<IEnumerable<UsuariosSolicitudModel>> GetSolicitudAsync(int id);
 
-        Task<IEnumerable<Solicitud>> DeleteSolicitudAsync(int id);
+        Task<IEnumerable<Solicitud>> DeleteSolicitudAsync(int remitenteId, int destinatarioId);
     }
 }
