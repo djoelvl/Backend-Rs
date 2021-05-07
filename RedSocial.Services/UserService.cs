@@ -135,7 +135,6 @@ namespace RedSocial.Services
                             FirstName = a.FirstName,
                             LastName = a.LastName,
                             UserName = a.UserName,
-                            Token = Guid.NewGuid().ToString()
                         }).FirstOrDefaultAsync();
 
             if (user == null)
@@ -143,8 +142,16 @@ namespace RedSocial.Services
                 throw new Exception("El usuario no existe");
             }
 
+            user.Token  = GenerateToken(user.Id);
+
 
             return  user;
         }
+
+        private string GenerateToken(int userId)=>
+            Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Guid.NewGuid()}|{userId}|{DateTime.UtcNow}|1"));
+
+
+
     }
 }

@@ -39,13 +39,17 @@ namespace RedSocial.Services
                             FirstName = a.FirstName,
                             LastName = a.LastName,
                             UserName = a.UserName,
-                            Estado = _db.Solicitud.Where(s => s.RemitenteId == id && s.DestinatarioId == a.Id && s.Estado == "enviada" ||
-                            s.RemitenteId == a.Id && s.DestinatarioId == a.Id && s.Estado == "enviada").Any()             
+                            Estado = _db.Solicitud.Where(s => (s.RemitenteId == a.Id && s.DestinatarioId == id) ||
+                            (s.RemitenteId == id && s.DestinatarioId == a.Id)).Select(s=>s.Estado).FirstOrDefault()
+                           
+                            
                         }
                                             ;
 
-            return await query.ToListAsync();
+            return await query.Distinct().ToListAsync();
         }
+
+      
 
         public async Task<Solicitud> EnviarSolicitudAsync(Solicitud solicitud)
         {

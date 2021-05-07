@@ -19,5 +19,6 @@ namespace RedSocial.Services.Interfaces
         Task<IEnumerable<UsuariosSolicitudModel>> GetSolicitudAsync(int id);
 
         Task<IEnumerable<Solicitud>> DeleteSolicitudAsync(int remitenteId, int destinatarioId);
+
     }
 }

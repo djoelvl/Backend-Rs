@@ -50,7 +50,7 @@ namespace RsWebApi.Controllers
             return Ok(await _amigoService.DeleteSolicitudAsync(remitenteId, destinatarioId));
         }
 
-        
+      
 
     }
 }

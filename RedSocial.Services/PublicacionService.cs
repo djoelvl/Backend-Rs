@@ -16,12 +16,12 @@ namespace RedSocial.Services
 
         private readonly RsDbContext _db;
 
-        public PublicacionService (RsDbContext db)
+        public PublicacionService(RsDbContext db)
         {
             _db = db;
         }
 
-     
+
 
         public async Task<IEnumerable<PublicacionModel>> GetPublicacionAsync()
         {
@@ -36,10 +36,10 @@ namespace RedSocial.Services
                 }).ToListAsync();
         }
 
-        public async Task<IEnumerable<PublicacionModel>> GetPublicacionByUserLikeCountAsync(int id, int amigoId) 
+        public async Task<IEnumerable<PublicacionModel>> GetPublicacionByUserLikeCountAsync(int id, int amigoId)
         {
 
-            
+
 
             var query = from a in _db.Publicacion
                         where a.UserId == id
@@ -51,12 +51,12 @@ namespace RedSocial.Services
                             UserId = a.UserId,
                             CantidadLikes = _db.Like.Where(w => w.PublicacionId == a.Id).Count(),
                             Liked = _db.Like.Where(w => w.PublicacionId == a.Id && w.RemitenteId == amigoId).Any()
-                            
+
 
                         };
 
-                   return await query.ToListAsync();
-               }
+            return await query.ToListAsync();
+        }
 
         public async Task<PublicacionModel> PostPublicacionAsync(PublicacionModel model)
         {
@@ -66,17 +66,17 @@ namespace RedSocial.Services
                 UserId = model.UserId
             };
 
-                    await _db.Publicacion.AddAsync(query);
-                    await _db.SaveChangesAsync();
+            await _db.Publicacion.AddAsync(query);
+            await _db.SaveChangesAsync();
 
-                    return model;
+            return model;
         }
 
         public async Task<IEnumerable<PublicacionModel>> DeletePublicacionAsync(int id)
         {
             var query = await _db.Publicacion.FindAsync(id);
 
-             _db.Publicacion.Remove(query);
+            _db.Publicacion.Remove(query);
             await _db.SaveChangesAsync();
 
             return await _db
@@ -123,7 +123,7 @@ namespace RedSocial.Services
         public async Task<IEnumerable<PublicacionModel>> GetUserpublicacionAsync(int id)
         {
             return await _db
-               .Publicacion.Where(p=>p.UserId == id)
+               .Publicacion.Where(p => p.UserId == id)
                .Select(p => new PublicacionModel
                {
                    Id = p.Id,
@@ -132,5 +132,7 @@ namespace RedSocial.Services
 
                }).ToListAsync();
         }
+
+        
     }
 }
