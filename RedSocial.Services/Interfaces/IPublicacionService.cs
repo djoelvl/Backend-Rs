@@ -11,7 +11,7 @@ namespace RedSocial.Services.Interfaces
     {
         Task<IEnumerable<PublicacionModel>> GetPublicacionAsync();
 
-        Task<IEnumerable<PublicacionModel>> GetPublicacionByUserLikeCountAsync(int id);
+        Task<IEnumerable<PublicacionModel>> GetPublicacionByUserLikeCountAsync(int id, int amigoId);
 
         Task<PublicacionModel> PostPublicacionAsync(PublicacionModel model);
 

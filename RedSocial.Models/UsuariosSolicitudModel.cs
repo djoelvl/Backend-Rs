@@ -12,7 +12,7 @@
 
         public string UserName { get; set; }
 
-        public string Estado { get; set; }
+        public bool Estado { get; set; }
 
         public int RemitenteId { get; set; }
 

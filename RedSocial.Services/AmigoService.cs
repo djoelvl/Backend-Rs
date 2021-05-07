@@ -30,7 +30,7 @@ namespace RedSocial.Services
             var query = from a in _db.User
                         join b in _db.Solicitud on a.Id equals b.DestinatarioId into ab
                         from c in ab.DefaultIfEmpty()
-                        where a.Id != id && c.Estado != "aceptada"
+                        where a.Id != id
 
                         select
                         new UsuariosSolicitudModel
@@ -39,7 +39,8 @@ namespace RedSocial.Services
                             FirstName = a.FirstName,
                             LastName = a.LastName,
                             UserName = a.UserName,
-                            Estado = c.Estado                        
+                            Estado = _db.Solicitud.Where(s => s.RemitenteId == id && s.DestinatarioId == a.Id && s.Estado == "enviada" ||
+                            s.RemitenteId == a.Id && s.DestinatarioId == a.Id && s.Estado == "enviada").Any()             
                         }
                                             ;
 

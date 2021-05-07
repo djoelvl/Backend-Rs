@@ -36,19 +36,24 @@ namespace RedSocial.Services
                 }).ToListAsync();
         }
 
-        public async Task<IEnumerable<PublicacionModel>> GetPublicacionByUserLikeCountAsync(int id)
+        public async Task<IEnumerable<PublicacionModel>> GetPublicacionByUserLikeCountAsync(int id, int amigoId) 
         {
-           
-                    var query = from a in _db.Publicacion
-                                where a.UserId == id
-                                select new PublicacionModel
-                                {
 
-                                    Id = a.Id,
-                                    Contenido = a.Contenido,
-                                    UserId = a.UserId,
-                                    CantidadLikes = _db.Like.Where(w => w.PublicacionId == a.Id).Count()
-                                };
+            
+
+            var query = from a in _db.Publicacion
+                        where a.UserId == id
+                        select new PublicacionModel
+                        {
+
+                            Id = a.Id,
+                            Contenido = a.Contenido,
+                            UserId = a.UserId,
+                            CantidadLikes = _db.Like.Where(w => w.PublicacionId == a.Id).Count(),
+                            Liked = _db.Like.Where(w => w.PublicacionId == a.Id && w.RemitenteId == amigoId).Any()
+                            
+
+                        };
 
                    return await query.ToListAsync();
                }

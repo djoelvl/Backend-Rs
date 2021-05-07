@@ -23,10 +23,10 @@ namespace RsWebApi.Controllers
             return Ok(await _publicacionService.GetPublicacionAsync());
         }
 
-        [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> GetPublicacionByUserLikeCount(int id)
+        [HttpGet("[action]/{id}/{amigoId}")]
+        public async Task<IActionResult> GetPublicacionByUserLikeCount(int id, int amigoId)
         {
-            return Ok(await _publicacionService.GetPublicacionByUserLikeCountAsync(id));
+            return Ok(await _publicacionService.GetPublicacionByUserLikeCountAsync(id, amigoId));
         }
 
         [HttpPost]
