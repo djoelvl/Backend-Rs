@@ -137,3 +137,10 @@ C:\Users\dvalerio\Desktop\Probando\RsWebApi\obj\Debug\net5.0\RsWebApi.dll
 C:\Users\dvalerio\Desktop\Probando\RsWebApi\obj\Debug\net5.0\ref\RsWebApi.dll
 C:\Users\dvalerio\Desktop\Probando\RsWebApi\obj\Debug\net5.0\RsWebApi.pdb
 C:\Users\dvalerio\Desktop\Probando\RsWebApi\obj\Debug\net5.0\RsWebApi.genruntimeconfig.cache
+C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\System.Web.Mvc.dll
+C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\System.Web.Razor.dll
+C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\System.Web.Helpers.dll
+C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\System.Web.WebPages.Deployment.dll
+C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\System.Web.WebPages.Razor.dll
+C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\System.Web.WebPages.dll
+C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll

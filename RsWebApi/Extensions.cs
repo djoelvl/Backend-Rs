@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+ 
 
 namespace RsWebApi
 {
@@ -26,6 +27,26 @@ namespace RsWebApi
             }
 
             return true;
+        }
+
+        
+        public static bool IsAuthenticated(this HttpRequest request)
+        {
+
+            if (request.Headers.TryGetValue("Basic", out var token))
+            {
+
+                var keys = Base64Decode(token).Split('|');
+                var _id = Convert.ToInt32(keys[1]);
+                var date = Convert.ToDateTime(keys[2]);
+                var min = Convert.ToInt32(keys[3]);
+
+                return (date.AddMinutes(min) < DateTime.UtcNow);
+           
+
+            }
+
+            return false;
         }
 
         private static string Base64Decode(string base64EncodedData)

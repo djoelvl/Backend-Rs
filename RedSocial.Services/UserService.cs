@@ -143,9 +143,11 @@ namespace RedSocial.Services
             }
 
             user.Token  = GenerateToken(user.Id);
+            
+            
 
 
-            return  user;
+            return user;
         }
 
         private string GenerateToken(int userId)=>

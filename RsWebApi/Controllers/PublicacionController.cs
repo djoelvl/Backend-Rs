@@ -4,15 +4,18 @@ using RedSocial.Services.Interfaces;
 using RedSocial.Models;
 using System.Collections.Generic;
 using System;
+using RsWebApi;
 
 namespace RsWebApi.Controllers
 {
     [Route("api/[controller]")]
+    
     [ApiController]
     public class PublicacionController : ControllerBase
     {
         private readonly IPublicacionService _publicacionService;
 
+        
         public PublicacionController(IPublicacionService publicacionService)
         {
             _publicacionService = publicacionService;
@@ -30,8 +33,7 @@ namespace RsWebApi.Controllers
         public async Task<IActionResult> GetPublicacionByUserLikeCount(int id, int amigoId)
         {
 
-            if (!this.IsAuthorized())          
-                    return Unauthorized();
+            
 
 
             return Ok(await _publicacionService.GetPublicacionByUserLikeCountAsync(id, amigoId));

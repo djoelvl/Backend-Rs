@@ -31,12 +31,15 @@ namespace RsWebApi
         {
 
 
-            services.AddControllers();
+            services.AddControllers(options=>
+            {
+                options.Filters.Add(new AuthActionFilter());
+            });
 
             services.AddDbContext<RsDbContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("Local")));
-         
 
+            services.AddAuthentication();
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IPublicacionService, PublicacionService>();
@@ -69,6 +72,7 @@ namespace RsWebApi
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "apiRestFull2 v1"));
 
             app.UseAuthorization();
+  
 
             app.UseEndpoints(endpoints =>
             {
