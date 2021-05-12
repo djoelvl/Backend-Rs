@@ -13,7 +13,9 @@
       "commandName": "IISExpress",
       "launchUrl": "weatherforecast",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "Llave_super_secreta": "AASDJKASDLKASJDLKQWJEKLQWJKELKASJDKLAFLZX1LK31231243JK2L3142JKL4312KLDJALKSDJKLADJL1K2J3L1K2J4KLLASKJD",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Clave": "Valor"
       }
     },
     "RsWebApi": {

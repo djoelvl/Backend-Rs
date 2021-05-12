@@ -1,24 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using RedSocial.Models;
 using RedSocial.Services.Db;
 using RedSocial.Services.Entities;
 using RedSocial.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+
+
 
 namespace RedSocial.Services
 {
     public class UserService : IUserService
     {
         private readonly RsDbContext _db;
+        private readonly IConfiguration _configuration;
 
-        public UserService(RsDbContext db)
+
+        
+
+        public UserService(RsDbContext db, IConfiguration configuration)
         {
             _db = db;
+            _configuration = configuration;
+
         }
+
+      
 
         public async Task<User> CreateUserAsync(User model)
         {
@@ -142,18 +156,63 @@ namespace RedSocial.Services
                 throw new Exception("El usuario no existe");
             }
 
-            user.Token  = GenerateToken(user.Id);
-            
-            
+            //    var secretKey = _configuration.GetValue<string>("SecretKey");
+            //    var key = Encoding.ASCII.GetBytes(secretKey);
 
+            //    // Creamos los claims (pertenencias, características) del usuario
+            //    var claims = new[]
+            //    {
+            //    new Claim(ClaimTypes.NameIdentifier, user.UserId),
+            //    new Claim(ClaimTypes.Email, user.Email)
+            //};
+
+            //    var tokenDescriptor = new SecurityTokenDescriptor
+            //    {
+            //        Subject = claims,
+            //        // Nuestro token va a durar un día
+            //        Expires = DateTime.UtcNow.AddDays(1),
+            //        // Credenciales para generar el token usando nuestro secretykey y el algoritmo hash 256
+            //        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            //    };
+
+            //    var tokenHandler = new JwtSecurityTokenHandler();
+            //    var createdToken = tokenHandler.CreateToken(tokenDescriptor);
+
+            //    return tokenHandler.WriteToken(createdToken);
+
+            //user.Token  = GenerateToken(user.Id);
+
+            var claims = new[]
+           {
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+                new Claim("miValor", "Lo que yo quiera"),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Llave_super_secreta"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var expiration = DateTime.UtcNow.AddHours(1);
+
+            JwtSecurityToken token = new JwtSecurityToken(
+               issuer: "yourdomain.com",
+               audience: "yourdomain.com",
+               claims: claims,
+               expires: expiration,
+               signingCredentials: creds);
+
+
+            user.Token = new JwtSecurityTokenHandler().WriteToken(token);
+                      
 
             return user;
         }
 
-        private string GenerateToken(int userId)=>
-            Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Guid.NewGuid()}|{userId}|{DateTime.UtcNow}|1"));
+        //private string GenerateToken(int userId)=>
+        //    Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Guid.NewGuid()}|{userId}|{DateTime.UtcNow}|1"));
 
 
+        
 
     }
 }

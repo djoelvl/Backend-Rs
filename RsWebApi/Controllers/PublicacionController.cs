@@ -5,12 +5,16 @@ using RedSocial.Models;
 using System.Collections.Generic;
 using System;
 using RsWebApi;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RsWebApi.Controllers
 {
     [Route("api/[controller]")]
     
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public class PublicacionController : ControllerBase
     {
         private readonly IPublicacionService _publicacionService;

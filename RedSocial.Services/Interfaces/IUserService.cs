@@ -22,6 +22,7 @@ namespace RedSocial.Services.Interfaces
         Task<IEnumerable<UserModel>> DeteleUserAsync(int id);
 
         Task<LoginResult> LoginAsync(string userName, string password);
+
     }
 
 }

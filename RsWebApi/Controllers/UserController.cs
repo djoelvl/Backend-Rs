@@ -4,7 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using RedSocial.Services.Interfaces;
 using RedSocial.Models;
 using RedSocial.Services.Entities;
-
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RsWebApi.Controllers
 {
@@ -14,11 +22,18 @@ namespace RsWebApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IConfiguration _configuration;
 
-        public UserController(IUserService userService)
+      
+
+
+        public UserController(IUserService userService, IConfiguration configuration)
         {
             _userService = userService;
+            _configuration = configuration;
         }
+
+        
 
 
         [HttpGet("[action]/{id}")]
@@ -31,6 +46,7 @@ namespace RsWebApi.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateUser(User model)
         {
+
             return Ok(await _userService.CreateUserAsync(model));
         }
 
@@ -50,7 +66,6 @@ namespace RsWebApi.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> GetLogin(User model)
         {
-
             return Ok(await _userService.LoginAsync(model.UserName, model.Password));
         }
 
@@ -60,6 +75,9 @@ namespace RsWebApi.Controllers
             return Ok(await _userService.DeteleUserAsync(id));
         }
 
-      
+
+
+        
+
     }
 }

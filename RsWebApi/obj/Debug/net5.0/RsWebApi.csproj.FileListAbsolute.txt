@@ -144,3 +144,4 @@ C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\System.Web.WebPages
 C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\System.Web.WebPages.Razor.dll
 C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\System.Web.WebPages.dll
 C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
+C:\Users\dvalerio\Desktop\Probando\RsWebApi\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

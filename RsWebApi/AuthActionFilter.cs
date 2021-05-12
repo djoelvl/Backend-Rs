@@ -15,15 +15,15 @@ namespace RsWebApi
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            var req = context.HttpContext.Request;
+        //    var req = context.HttpContext.Request;
 
-            //if (segments.Contains(req.Path.ToString().ToLower()))
-            //    return;
+        //    //if (segments.Contains(req.Path.ToString().ToLower()))
+        //    //    return;
 
-            if (!req.IsAuthenticated() && !segments.Contains(req.Path.ToString().ToLower()) )
-            {
-                context.Result = new UnauthorizedObjectResult("No tiene privilegios para ejecutar esta acción");
-            }
+        //    if (!req.IsAuthenticated() && !segments.Contains(req.Path.ToString().ToLower()) )
+        //    {
+        //        context.Result = new UnauthorizedObjectResult("No tiene privilegios para ejecutar esta acción");
+        //    }
 
         }
 
